@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 
 import styles from './ContactList.module.css';
 
-
 export const ContactList = ({ contacts, toDelete }) => (
     <ul className={styles.list}>
         {contacts.map(({ id, name, number }) => (
@@ -18,7 +17,6 @@ export const ContactList = ({ contacts, toDelete }) => (
         ))}
     </ul>
 );
-
 
 ContactList.propTypes = {
     toDelete: PropTypes.func.isRequired,
