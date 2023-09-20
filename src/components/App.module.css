@@ -8,10 +8,6 @@
     flex-direction: column;
 }
 
-ul {
-    list-style: none;
-}
-
-h1 {
-    margin-top: 10px;
+.tittle {
+    margin-top: 20px;
 }

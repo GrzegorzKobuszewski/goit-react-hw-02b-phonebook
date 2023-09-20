@@ -79,7 +79,7 @@ export class App extends Component {
     const { filter } = this.state;
     return (
       <div className={styles.container}>
-        <h1 className={styles.h1}>Phonebook</h1>
+        <h1 className={styles.tittle}>Phonebook</h1>
         <ContactForm onSubmit={this.add} />
         <Filter value={filter} onChange={this.handleChangeFilter} />
         <ContactList
