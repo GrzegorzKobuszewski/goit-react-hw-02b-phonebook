@@ -21,8 +21,5 @@ export const ContactList = ({ contacts, toDelete }) => (
 
 
 ContactList.propTypes = {
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    number: PropTypes.number.isRequired,
     toDelete: PropTypes.func.isRequired,
 }

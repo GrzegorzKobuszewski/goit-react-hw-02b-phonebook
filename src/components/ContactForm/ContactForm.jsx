@@ -63,8 +63,3 @@ export class ContactForm extends Component {
         );
     }
 }
-
-ContactForm.propTypes = {
-    id: PropTypes.func.isRequired,
-    name: PropTypes.func.isRequired,
-};
