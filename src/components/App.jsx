@@ -5,6 +5,9 @@ import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 
+import styles from './App.module.css';
+
+
 const INITIAL_STATE = {
   contacts: [
     { id: 'id-1', name: 'Krzysiek Chojnicki', number: '752-365-987' },
@@ -18,77 +21,71 @@ const INITIAL_STATE = {
 export class App extends Component {
   state = { ...INITIAL_STATE };
 
+
   componentDidUpdate() {
     // console.log(this.state.filter);
   }
 
-  handleSubmit = evt => {
-    evt.preventDefault();
-    const form = evt.currentTarget;
-    const name = form.elements.name.value;
-    const number = form.elements.number.value;
-    const newContact = { id: nanoid(6), name: name, number: number };
-    const nameArray = this.state.contacts.map(({ name }) => name);
-    if (nameArray.includes(name)) {
-      alert(`${name} is already in contacts.`);
-    } else {
-      this.setState(({ contacts }) => ({
-        contacts: [...contacts, newContact],
-      }));
-      form.reset();
-    }
-  };
 
-  handleChange = evt => {
-    const { name, value } = evt.target;
+  handleChange = e => {
+    const { name, value } = e.target;
     this.setState({ [name]: value });
   };
 
-  fooFilter = () => {
-    const newArray = this.state.contacts.filter(contact => {
-      const valueToLow = this.state.filter.toLowerCase();
-      return contact.name.toLowerCase().includes(valueToLow);
-    });
-    return newArray;
-  };
 
-  fooDelete = contactID => {
-    const index = this.state.contacts.findIndex(
-      contact => contact.id === contactID
-    );
-    const genNewElement = () => {
-      const array = this.state.contacts;
-      let newArray = [];
-      for (const element of array) {
-        if (array.indexOf(element) !== index) {
-          newArray.push(element);
-        }
+  add = ({ name, number }) => {
+    const toLowerCase = name.toLowerCase();
+    const contacts = this.state.contacts;
+    let nameOntheList = false;
+
+    const newContact = { id: nanoid(), name: name, number: number };
+
+    contacts.forEach(contact => {
+      if (contact.name.toLowerCase() === toLowerCase) {
+        alert(`${contact.name} is already in contacts`);
+        nameOntheList = true;
       }
-      return newArray;
-    };
-    this.setState(({ contacts }) => ({ contacts: genNewElement() }));
+    });
+
+    if (nameOntheList) return;
+
+    this.setState(prevState => ({
+      contacts: prevState.contacts.concat(newContact),
+    }));
   };
 
-  render() {
-    return (
-      <div
-        style={{
-          height: '100%',
-          display: 'flex',
-          maxWidth: '400px',
-          margin: '0 auto',
-          flexDirection: 'column',
-          fontSize: 20,
-          color: '#010101',
-          padding: '20px 10px',
-        }}
-      >
-        <h1>Phonebook</h1>
-        <ContactForm handleSubmit={this.handleSubmit} />
 
-        <h2>Contacts</h2>
-        <Filter value={this.state.filter} handleChange={this.handleChange} />
-        <ContactList onDelete={this.fooDelete} filterArray={this.fooFilter} />
+  handleChangeFilter = e => {
+    this.setState({ filter: e.target.value });
+  };
+
+
+  filterItems = () => {
+    const { filter, contacts } = this.state;
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
+  };
+
+
+  deleteContact = idToDelete => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== idToDelete),
+    }));
+  };
+
+  
+  render() {
+    const { filter } = this.state;
+    return (
+      <div className={styles.container}>
+        <h1 className={styles.h1}>Phonebook</h1>
+        <ContactForm onSubmit={this.add} />
+        <Filter value={filter} onChange={this.handleChangeFilter} />
+        <ContactList
+          contacts={this.filterItems()}
+          toDelete={this.deleteContact}
+        />
       </div>
     );
   }

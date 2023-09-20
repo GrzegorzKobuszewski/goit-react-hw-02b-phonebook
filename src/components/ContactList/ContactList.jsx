@@ -2,29 +2,27 @@ import PropTypes from 'prop-types';
 
 import styles from './ContactList.module.css';
 
-export const ContactList = ({ onDelete, filterArray }) => {
-    return (
-        <ul className={styles.list}>
-            {filterArray().map(contact => (
-                <li key={contact.id} className={styles.item}>
-                    <span className={styles.paragraph}>
-                        {contact.name}: {contact.number}
-                    </span>
+
+export const ContactList = ({ contacts, toDelete }) => (
+    <ul className={styles.list}>
+        {contacts.map(({ id, name, number }) => (
+            <li className={styles.item} key={id}>
+                <p className={styles.paragraph}>
+                    {name}: {number}
+                </p>
                     
-                    <button
-                        type="button"
-                        className={styles.btn}
-                        onClick={() => onDelete(contact.id)}
-                    >
-                        Delete
-                    </button>
-                </li>
-            ))}
-        </ul>
-    );
-};
+                <button className={styles.button} type="submit" onClick={() => toDelete(id)}>
+                Delete
+                </button>
+            </li>
+        ))}
+    </ul>
+);
+
 
 ContactList.propTypes = {
-    onDelete: PropTypes.func.isRequired,
-    filterArray: PropTypes.func.isRequired,
-};
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    number: PropTypes.number.isRequired,
+    toDelete: PropTypes.func.isRequired,
+}

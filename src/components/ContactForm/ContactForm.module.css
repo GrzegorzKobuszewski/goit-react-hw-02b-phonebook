@@ -5,6 +5,7 @@
 
 .label {
     gap: 10px;
+    padding-bottom: 10px;
     font-size: 16px;
     display: flex;
     flex-direction: column;
@@ -14,7 +15,6 @@
 
 .label:first-child {
     margin-top: 20px;
-    padding-bottom: 0px;
 }
 
 .input {
