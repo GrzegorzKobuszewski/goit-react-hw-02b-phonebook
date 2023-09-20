@@ -11,7 +11,7 @@ export const ContactList = ({ contacts, toDelete }) => (
                 </p>
                     
                 <button className={styles.button} type="submit" onClick={() => toDelete(id)}>
-                Delete
+                    Delete
                 </button>
             </li>
         ))}
