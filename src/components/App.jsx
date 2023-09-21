@@ -4,7 +4,6 @@ import { nanoid } from 'nanoid';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
-/* import SignUpForm from './Example/SignUpForm'; */
 
 import styles from './App.module.css';
 
@@ -75,7 +74,7 @@ export class App extends Component {
     }));
   };
 
-  
+
   render() {
     const { filter } = this.state;
     return (
@@ -87,16 +86,7 @@ export class App extends Component {
           contacts={this.filterItems()}
           toDelete={this.deleteContact}
         />
-      
-
-      
       </div>  
     );
   }
 }
-
-        /*
-        <div>
-          <SignUpForm/>
-        </div>
-        */
