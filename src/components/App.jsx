@@ -10,7 +10,7 @@ import styles from './App.module.css';
 
 const INITIAL_STATE = {
   contacts: [
-    { id: 'id-1', name: 'Krzysiek Chojnickisdad d s', number: '752-365-987' },
+    { id: 'id-1', name: 'Krzysiek Chojnicki', number: '752-365-987' },
     { id: 'id-2', name: 'Zosia Makowiecka', number: '443-892-121' },
     { id: 'id-3', name: 'Michał Jackiewicz', number: '569-645-079' },
     { id: 'id-4', name: 'Tomek Kujawa', number: '227-391-260' },
@@ -40,6 +40,8 @@ export class App extends Component {
 
     const newContact = { id: nanoid(), name: name, number: number };
 
+    this.setState({ filter: '' });
+
     contacts.forEach(contact => {
       if (contact.name.toLowerCase() === toLowerCase) {
         alert(`${contact.name} is already in contacts`);
@@ -52,6 +54,7 @@ export class App extends Component {
     this.setState(prevState => ({
       contacts: prevState.contacts.concat(newContact),
     }));
+
   };
 
 
