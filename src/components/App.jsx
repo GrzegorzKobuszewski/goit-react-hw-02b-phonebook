@@ -52,7 +52,7 @@ export class App extends Component {
     if (nameOntheList) return;
 
     this.setState(prevState => ({
-      contacts: prevState.contacts.concat(newContact).sort((a, b) => a.name.localeCompare(b.name)),
+      contacts: prevState.contacts.concat(newContact),
     }));
 
   };
@@ -67,7 +67,7 @@ export class App extends Component {
     const { filter, contacts } = this.state;
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
+    ).sort((a, b) => a.name.localeCompare(b.name));
   };
 
 
